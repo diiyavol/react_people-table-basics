@@ -24,7 +24,7 @@ export const PeoplePage = () => {
 
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => setError(true), 3000);
+      const timer = setTimeout(() => setError(false), 3000);
 
       return () => clearTimeout(timer);
     }

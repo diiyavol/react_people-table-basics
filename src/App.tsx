@@ -1,5 +1,12 @@
 import './App.scss';
-import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import {
+  Link,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  HashRouter as Router,
+} from 'react-router-dom';
 import { HomePage } from './HomePage';
 import { PeoplePage } from './PeoplePage';
 import { PageNotFound } from './PageNotFound';
@@ -17,49 +24,51 @@ export const App = () => {
   };
 
   return (
-    <div data-cy="app">
-      <nav
-        data-cy="nav"
-        className="navbar is-fixed-top has-shadow"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div className="container">
-          <div className="navbar-brand">
-            <Link
-              className={classNames('navbar-item', {
-                'has-background-grey-lighter': isActive('/'),
-              })}
-              to="/"
-            >
-              Home
-            </Link>
+    <Router>
+      <div data-cy="app">
+        <nav
+          data-cy="nav"
+          className="navbar is-fixed-top has-shadow"
+          role="navigation"
+          aria-label="main navigation"
+        >
+          <div className="container">
+            <div className="navbar-brand">
+              <Link
+                className={classNames('navbar-item', {
+                  'has-background-grey-lighter': isActive('/'),
+                })}
+                to="/"
+              >
+                Home
+              </Link>
 
-            <Link
-              className={classNames('navbar-item', {
-                'has-background-grey-lighter': isActive('/people'),
-              })}
-              to="/people"
-            >
-              People
-            </Link>
+              <Link
+                className={classNames('navbar-item', {
+                  'has-background-grey-lighter': isActive('/people'),
+                })}
+                to="/people"
+              >
+                People
+              </Link>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      <main className="section">
-        <div className="container">
-          <Routes>
-            <Route path="/home" element={<Navigate to="/" replace />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="people">
-              <Route index element={<PeoplePage />} />
-              <Route path=":slug" element={<PeoplePage />} />
-            </Route>
-            <Route path="*" element={<PageNotFound />}></Route>
-          </Routes>
-        </div>
-      </main>
-    </div>
+        <main className="section">
+          <div className="container">
+            <Routes>
+              <Route path="home" element={<Navigate to="/" replace />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="people">
+                <Route index element={<PeoplePage />} />
+                <Route path=":slug" element={<PeoplePage />} />
+              </Route>
+              <Route path="*" element={<PageNotFound />}></Route>
+            </Routes>
+          </div>
+        </main>
+      </div>
+    </Router>
   );
 };
